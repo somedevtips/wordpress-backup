@@ -1,0 +1,3 @@
+WP_PATH=public_html
+ARCHIVE_EXTENSION=.tar.bz2
+ARCHIVE_VERBOSE=0
