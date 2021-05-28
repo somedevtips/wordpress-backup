@@ -14,13 +14,16 @@ if [ -z $WP_VERSION ]; then
 fi
 
 if [ -z $1 ]; then
-  echo "Please enter backup type: full, system, wp-content, plugins, themes, mu-plugins"
+  echo "Please enter backup type: full, nouploads, system, wp-content, plugins, themes, mu-plugins"
   exit
 fi
 
 EXCLUDE=''
 if [ "$1" == "full" ]; then
   DIR_TO_BACKUP=$WP_PATH
+elif [ "$1" == "nouploads" ]; then
+  DIR_TO_BACKUP=$WP_PATH
+  EXCLUDE="--exclude=${WP_PATH}/wp-content/uploads"
 elif [ "$1" == "system" ]; then
   DIR_TO_BACKUP=$WP_PATH
   EXCLUDE="--exclude=${WP_PATH}/wp-content"
@@ -33,7 +36,7 @@ elif [ "$1" == "mu-plugins" ]; then
 elif [ "$1" == "themes" ]; then
   DIR_TO_BACKUP=$WP_PATH/wp-content/themes
 else
-  echo "Wrong backup type: it can be full, system, wp-content, plugins, themes, mu-plugins"
+  echo "Wrong backup type: it can be full, nouploads, system, wp-content, plugins, themes, mu-plugins"
   exit
 fi
 
@@ -64,7 +67,7 @@ else
 fi
 
 echo "Creating backup of files: $BACKUP_FILE_NAME"
-tar -c${SWITCH_COMPR}${SWITCH_VERB}f $BACKUP_FILE_NAME $DIR_TO_BACKUP $EXCLUDE
+tar $EXCLUDE -c${SWITCH_COMPR}${SWITCH_VERB}f $BACKUP_FILE_NAME $DIR_TO_BACKUP 
 
 echo "Database dump"
 wp db export --path=$WP_PATH ${FILE_NAME}.sql
