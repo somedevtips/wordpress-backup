@@ -38,6 +38,7 @@ To create a backup you will execute the sdtips-wpbackup.sh script.
 This script has two parameters, the first is mandatory, the second one 
 optional:  
 1. what you want to backup between `full` (backup of all WordPress files), 
+`nouploads` (all files except wp-content/uploads),
 `system` (all files except wp-content), `wp-content` (only wp-content), 
 `plugins` (only wp-content/plugins), `mu-plugins` (only wp-content/mu-plugins),
 `themes` (only wp-content/themes).  
