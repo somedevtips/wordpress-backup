@@ -51,7 +51,9 @@ fi
 BACKUP_FILE_NAME=$FILE_NAME$ARCHIVE_EXTENSION
 
 #Create backup
-if [ "$ARCHIVE_EXTENSION" == ".tar.bz2" ]; then
+if [ "$ARCHIVE_EXTENSION" == ".tar.xz" ]; then
+  SWITCH_COMPR="J"
+elif [ "$ARCHIVE_EXTENSION" == ".tar.bz2" ]; then
   SWITCH_COMPR="j"
 elif [ "$ARCHIVE_EXTENSION" == ".tar.gz" ]; then
   SWITCH_COMPR="z"
@@ -67,7 +69,7 @@ else
 fi
 
 echo "Creating backup of files: $BACKUP_FILE_NAME"
-tar $EXCLUDE -c${SWITCH_COMPR}${SWITCH_VERB}f $BACKUP_FILE_NAME $DIR_TO_BACKUP 
+tar $EXCLUDE -c${SWITCH_COMPR}${SWITCH_VERB}f $BACKUP_FILE_NAME $DIR_TO_BACKUP
 
 echo "Database dump"
 wp db export --path=$WP_PATH ${FILE_NAME}.sql
